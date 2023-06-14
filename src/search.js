@@ -13,17 +13,17 @@ const SearchPage = () => {
         const response = await axios.get(
           `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(
             searchQuery
-          )}&limit=7&apiKey=c4f138dd2b814a7e8bfbea9751413b90`
+          )}&typeahead=true&limit=7&apiKey=c4f138dd2b814a7e8bfbea9751413b90`
         );
     
-        const cities = response.data.features.map((feature) => ({
+        const places = response.data.features.map((feature) => ({
           id: feature.properties.osm_id,
-          name: feature.properties.city,
+          name: feature.properties.formatted,
           country: feature.properties.country,
           // Additional properties like coordinates can be extracted if needed
         }));
     
-        setCityOptions(cities);
+        setCityOptions(places);
       } catch (error) {
         console.error('Error fetching city options:', error);
       }
@@ -70,6 +70,32 @@ const SearchPage = () => {
     }
   };
   
+  const handleCurrentLocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+  
+          try {
+            const response = await axios.get(
+              `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=c4f138dd2b814a7e8bfbea9751413b90`
+            );
+  
+            const address = response.data.features[0].properties.formatted;
+            // Use the address as input for your search bar or perform any necessary actions
+            setSearchQuery(address);
+          } catch (error) {
+            console.error('Error retrieving reverse geocoding data:', error);
+          }
+        },
+        (error) => {
+          console.error('Error getting current location:', error);
+        }
+      );
+    } else {
+      console.error('Geolocation is not supported by this browser.');
+    }
+  };
 
   return (
     <div>
@@ -94,6 +120,7 @@ const SearchPage = () => {
           </div>
         )}
         <button onClick={handleSearchClick}>Search</button>
+        <button onClick={handleCurrentLocation}>Use Current Location</button>
       </div>
     </div>
   );
