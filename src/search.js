@@ -121,6 +121,7 @@ const SearchPage = () => {
         )}
         <button onClick={handleSearchClick}>Search</button>
         <button onClick={handleCurrentLocation}>Use Current Location</button>
+        <button onClick={() => navigate('/news')}>View News</button>
       </div>
     </div>
   );
