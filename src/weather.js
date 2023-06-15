@@ -70,7 +70,9 @@ const WeatherForecast = () => {
               <img src={process.env.PUBLIC_URL + getWeatherIconUrl(day.day.condition.icon, true)} alt="Weather Icon" />
               <p>Max Temperature: {day.day.maxtemp_c}°C</p>
               <p>Min Temperature: {day.day.mintemp_c}°C</p>
+              {day.day.air_quality?.['us-epa-index'] && (
               <p>AQI: {day.day.air_quality?.['us-epa-index']} ({getAQIDescription(day.day.air_quality?.['us-epa-index'])})</p>
+              )}
               <p>Weather: {day.day.condition.text}</p>
               {/* Display additional forecast data as needed */}
             </div>
