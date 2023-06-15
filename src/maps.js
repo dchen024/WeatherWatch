@@ -20,7 +20,7 @@ const MapPage = () => {
     height: '100%',
     latitude: selectedCity ? selectedCity.latitude : 0,
     longitude: selectedCity ? selectedCity.longitude : 0,
-    zoom: 12,
+    zoom: 8,
     bearing: 0, // Initial bearing (rotation) value
   });
 
@@ -45,7 +45,7 @@ const MapPage = () => {
         const newBearing = prevViewport.bearing + 1; // Adjust the rotation speed as needed
 
         // Stop the rotation after 4 seconds
-        if (new Date().getTime() - prevViewport.startTimestamp >= 4200) {
+        if (new Date().getTime() - prevViewport.startTimestamp >= 4500) {
           clearInterval(rotationInterval);
           return prevViewport;
         }
@@ -84,6 +84,7 @@ const MapPage = () => {
               offsetLeft={-10}
             >
               <div className="marker"></div>
+              <span class = "pulse"></span>
             </Marker>
           )}
         </ReactMapGL>
