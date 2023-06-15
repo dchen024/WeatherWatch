@@ -13,7 +13,7 @@ const SearchPage = () => {
         const response = await axios.get(
           `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(
             searchQuery
-          )}&typeahead=true&limit=7&apiKey=c4f138dd2b814a7e8bfbea9751413b90`
+          )}&typeahead=true&limit=7&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`
         );
     
         const places = response.data.features.map((feature) => ({
@@ -49,7 +49,7 @@ const SearchPage = () => {
       const response = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           searchQuery
-        )}.json?access_token=pk.eyJ1Ijoic3Nha2liMiIsImEiOiJjbGl1dG5uaTAxcTQ4M3JrOWJldTJpazV1In0.IlyKslb44qscFU4K_e6fsg`
+        )}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
       );
   
       const { features } = response.data;
@@ -78,7 +78,7 @@ const SearchPage = () => {
   
           try {
             const response = await axios.get(
-              `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=c4f138dd2b814a7e8bfbea9751413b90`
+              `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`
             );
   
             const address = response.data.features[0].properties.formatted;

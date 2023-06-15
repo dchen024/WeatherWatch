@@ -9,7 +9,7 @@ const MapPage = () => {
   const { selectedCity } = location.state || {};
 
   // Mapbox API access token
-  const MAPBOX_TOKEN = 'pk.eyJ1Ijoic3Nha2liMiIsImEiOiJjbGl1dG5uaTAxcTQ4M3JrOWJldTJpazV1In0.IlyKslb44qscFU4K_e6fsg';
+  const MAPBOX_TOKEN = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
   // Mapbox map style
   const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
