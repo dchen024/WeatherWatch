@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import "./maps.css"
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapPage = () => {
   const location = useLocation();
@@ -19,7 +20,8 @@ const MapPage = () => {
     height: '100%',
     latitude: selectedCity ? selectedCity.latitude : 0,
     longitude: selectedCity ? selectedCity.longitude : 0,
-    zoom: 10,
+    zoom: 12,
+    bearing: 0, // Initial bearing (rotation) value
   });
 
   // State to toggle the flashing effect
@@ -37,6 +39,33 @@ const MapPage = () => {
   //   // Cleanup the timeout on component unmount
   //   return () => clearTimeout(timeout);
   // }, [selectedCity]);
+  useEffect(() => {
+    const rotationInterval = setInterval(() => {
+      setViewport((prevViewport) => {
+        const newBearing = prevViewport.bearing + 1; // Adjust the rotation speed as needed
+
+        // Stop the rotation after 4 seconds
+        if (new Date().getTime() - prevViewport.startTimestamp >= 4500) {
+          clearInterval(rotationInterval);
+          return prevViewport;
+        }
+
+        return {
+          ...prevViewport,
+          bearing: newBearing,
+        };
+      });
+    }, 100); // Adjust the interval duration as needed for smoother animation
+
+    setViewport((prevViewport) => ({
+      ...prevViewport,
+      startTimestamp: new Date().getTime(), // Save the start timestamp
+    }));
+
+    return () => {
+      clearInterval(rotationInterval); // Cleanup the interval on component unmount
+    };
+  }, []); // Run the effect only once on component mount
 
   return (
     <div>
@@ -67,6 +96,7 @@ const MapPage = () => {
           >
           </div>
         )}
+
       </div>
     </div>
   );  

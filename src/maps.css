@@ -14,35 +14,5 @@
     -moz-box-shadow: -1px 1px 4px rgba(0, 0, 0, .5);
     box-shadow: -1px 1px 4px rgba(0, 0, 0, .5);
   }
-  .beacon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    height: 3em;
-    width: 3em;
-    border-radius: 50%;
-    -webkit-transform: translateX(-50%);
-    -o-transform: translateX(-50%);
-    -moz-transform: translateX(-50%);
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-    z-index: -1
-  }
-  
-  .beacon:before,
-  .beacon:after {
-    position: absolute;
-    content: "";
-    height: 3em;
-    width: 3em;
-    left: 0;
-    top: 0;
-    background-color: transparent;
-    border-radius: 50%;
-    box-shadow: 0 0 0 2px #ed1f34;
-    -webkit-animation: active 2s infinite linear;
-    -moz-animation: active 2s infinite linear;
-    animation: active 2s infinite linear;
-  }
 
   
