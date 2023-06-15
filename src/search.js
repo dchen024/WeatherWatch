@@ -69,6 +69,33 @@ const SearchPage = () => {
       console.error('Error fetching city coordinates:', error);
     }
   };
+
+  const handleWeatherForecast = async () =>{
+    const selectedCity = cityOptions.find((city) => city.name === searchQuery);
+    try {
+      const response = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          searchQuery
+        )}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
+      );
+  
+      const { features } = response.data;
+      if (features.length > 0) {
+        const [longitude, latitude] = features[0].center;
+        selectedCity.latitude = latitude;
+        selectedCity.longitude = longitude;
+  
+        console.log(selectedCity.latitude);
+        console.log(selectedCity.longitude);
+
+        navigate('/weather', { state: {selectedCity} });
+      } else {
+          console.log('City not found.');
+        }
+      } catch (error) {
+        console.error('Error fetching city coordinates:', error);
+      }
+  }
   
   const handleCurrentLocation = () => {
     if (navigator.geolocation) {
@@ -122,6 +149,7 @@ const SearchPage = () => {
         <button onClick={handleSearchClick}>Search</button>
         <button onClick={handleCurrentLocation}>Use Current Location</button>
         <button onClick={() => navigate('/news')}>View News</button>
+        <button onClick={handleWeatherForecast}>Weather Forecast</button>
       </div>
     </div>
   );
