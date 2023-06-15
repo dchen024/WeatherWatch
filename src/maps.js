@@ -45,7 +45,7 @@ const MapPage = () => {
         const newBearing = prevViewport.bearing + 1; // Adjust the rotation speed as needed
 
         // Stop the rotation after 4 seconds
-        if (new Date().getTime() - prevViewport.startTimestamp >= 4500) {
+        if (new Date().getTime() - prevViewport.startTimestamp >= 4200) {
           clearInterval(rotationInterval);
           return prevViewport;
         }
