@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl';
 import "./maps.css"
 import 'mapbox-gl/dist/mapbox-gl.css';
 
@@ -12,7 +12,7 @@ const MapPage = () => {
   const MAPBOX_TOKEN = 'pk.eyJ1Ijoic3Nha2liMiIsImEiOiJjbGl1dG5uaTAxcTQ4M3JrOWJldTJpazV1In0.IlyKslb44qscFU4K_e6fsg';
 
   // Mapbox map style
-  const MAP_STYLE = 'mapbox://styles/mapbox/satellite-streets-v11';
+  const MAP_STYLE = 'mapbox://styles/mapbox/streets-v11';
 
   // Mapbox map viewport
   const [viewport, setViewport] = useState({
@@ -45,7 +45,7 @@ const MapPage = () => {
         const newBearing = prevViewport.bearing + 1; // Adjust the rotation speed as needed
 
         // Stop the rotation after 4 seconds
-        if (new Date().getTime() - prevViewport.startTimestamp >= 4500) {
+        if (new Date().getTime() - prevViewport.startTimestamp >= 5000) {
           clearInterval(rotationInterval);
           return prevViewport;
         }
@@ -69,7 +69,7 @@ const MapPage = () => {
 
   return (
     <div>
-      <div style={{ position: 'relative', height: '1000px' }}>
+      <div style={{ position: 'relative', height: '900px' }}>
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -87,6 +87,9 @@ const MapPage = () => {
               <span class = "pulse"></span>
             </Marker>
           )}
+          <div style={{ position: 'absolute', top: 10, right: 10 }}>
+          <NavigationControl />
+        </div>
         </ReactMapGL>
         {selectedCity && (
           <div
