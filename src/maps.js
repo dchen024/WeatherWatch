@@ -71,11 +71,8 @@ const MapPage = () => {
         const currentDate = new Date();
         const threeDaysAgo = new Date();
         threeDaysAgo.setDate(currentDate.getDate() - 3);
-  
-        const startDate = Math.floor(threeDaysAgo.getTime() / 1000);
-        const endDate = Math.floor(currentDate.getTime() / 1000);
-  
-        const tilesUrl = `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${process.env.REACT_APP_OPEN_WEATHERMAP_API_KEY}&start=${startDate}&end=${endDate}`;
+    
+        const tilesUrl = `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${process.env.REACT_APP_OPEN_WEATHERMAP_API_KEY}`;
 
         const response = await axios.get(tilesUrl);
   
@@ -116,9 +113,7 @@ const MapPage = () => {
       <Source
         id="historical-precipitation"
         type="raster"
-        tiles={[`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=a520a7f6ca6b96dd46d982ed6a385b3c&start=${
-          Math.floor((new Date().getTime() - 3 * 24 * 60 * 60 * 1000) / 1000)
-        }&end=${Math.floor(new Date().getTime() / 1000)}`]}
+        tiles={[`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${process.env.REACT_APP_OPEN_WEATHERMAP_API_KEY}`]}
         tileSize={256}
       >
         <Layer
