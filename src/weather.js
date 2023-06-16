@@ -9,7 +9,7 @@ const WeatherForecast = () => {
     useEffect(() => {
       const fetchWeatherData = async () => {
         try {
-            const apiKey = '93ad2cb637544848b61163447231506';
+            const apiKey = process.env.REACT_APP_WEATHERAPI_API_KEY;
             const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${selectedCity.latitude},${selectedCity.longitude}&days=7&aqi=yes`;
   
           const response = await fetch(apiUrl);
@@ -71,7 +71,7 @@ const WeatherForecast = () => {
               <p>Max Temperature: {day.day.maxtemp_c}°C</p>
               <p>Min Temperature: {day.day.mintemp_c}°C</p>
               {day.day.air_quality?.['us-epa-index'] && (
-              <p>AQI: {day.day.air_quality?.['us-epa-index']} ({getAQIDescription(day.day.air_quality?.['us-epa-index'])})</p>
+              <p>Air Quality: {day.day.air_quality?.['us-epa-index']} ({getAQIDescription(day.day.air_quality?.['us-epa-index'])})</p>
               )}
               <p>Weather: {day.day.condition.text}</p>
               {/* Display additional forecast data as needed */}

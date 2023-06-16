@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import ReactMapGL, { Marker, NavigationControl } from 'react-map-gl';
+import ReactMapGL, { Marker, NavigationControl, Source, Layer } from 'react-map-gl';
 import "./maps.css"
 import 'mapbox-gl/dist/mapbox-gl.css';
+import axios from 'axios';
 
 const MapPage = () => {
   const location = useLocation();
@@ -24,48 +25,69 @@ const MapPage = () => {
     bearing: 0, // Initial bearing (rotation) value
   });
 
-  // State to toggle the flashing effect
-  // const [isFlashing, setIsFlashing] = useState(false);
-
-  // // Start/stop the flashing effect when selectedCity changes
-  // useEffect(() => {
-  //   setIsFlashing(true);
-
-  //   // Stop the flashing effect after 3 seconds
-  //   const timeout = setTimeout(() => {
-  //     setIsFlashing(false);
-  //   }, 3000);
-
-  //   // Cleanup the timeout on component unmount
-  //   return () => clearTimeout(timeout);
-  // }, [selectedCity]);
   useEffect(() => {
     const rotationInterval = setInterval(() => {
       setViewport((prevViewport) => {
-        const newBearing = prevViewport.bearing + 1; // Adjust the rotation speed as needed
-
-        // Stop the rotation after 4 seconds
-        if (new Date().getTime() - prevViewport.startTimestamp >= 5000) {
+        const elapsedTime = new Date().getTime() - prevViewport.startTimestamp;
+        let newBearing;
+  
+        if (elapsedTime <= 5000) {
+          // Rotate the map for the first 5 seconds
+          newBearing = prevViewport.bearing + 1; 
+        } else if (elapsedTime <= 15000) {
+          // Rotate the map back for the next 10 seconds
+          newBearing = prevViewport.bearing - 1; 
+        } 
+        else if (elapsedTime <= 20000) {
+          // Rotate the map back for the next 5 seconds
+          newBearing = prevViewport.bearing + 1;
+        }
+        else {
+          // Stop the rotation after 20 seconds
           clearInterval(rotationInterval);
           return prevViewport;
         }
-
+  
         return {
           ...prevViewport,
           bearing: newBearing,
         };
       });
-    }, 100); // Adjust the interval duration as needed for smoother animation
-
+    }, 100); 
+  
     setViewport((prevViewport) => ({
       ...prevViewport,
       startTimestamp: new Date().getTime(), // Save the start timestamp
     }));
-
+  
     return () => {
-      clearInterval(rotationInterval); // Cleanup the interval on component unmount
+      clearInterval(rotationInterval); 
     };
   }, []); // Run the effect only once on component mount
+
+  useEffect(() => {
+    const fetchHistoricalPrecipitation = async () => {
+      try {
+        const currentDate = new Date();
+        const threeDaysAgo = new Date();
+        threeDaysAgo.setDate(currentDate.getDate() - 3);
+  
+        const startDate = Math.floor(threeDaysAgo.getTime() / 1000);
+        const endDate = Math.floor(currentDate.getTime() / 1000);
+  
+        const tilesUrl = `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${process.env.REACT_APP_OPEN_WEATHERMAP_API_KEY}&start=${startDate}&end=${endDate}`;
+
+        const response = await axios.get(tilesUrl);
+  
+      } catch (error) {
+        console.error('Error fetching historical precipitation data:', error);
+      }
+    };
+  
+    if (selectedCity) {
+      fetchHistoricalPrecipitation();
+    }
+  }, [selectedCity]);
 
   return (
     <div>
@@ -90,6 +112,22 @@ const MapPage = () => {
           <div style={{ position: 'absolute', top: 10, right: 10 }}>
           <NavigationControl />
         </div>
+        {selectedCity && (
+      <Source
+        id="historical-precipitation"
+        type="raster"
+        tiles={[`https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=a520a7f6ca6b96dd46d982ed6a385b3c&start=${
+          Math.floor((new Date().getTime() - 3 * 24 * 60 * 60 * 1000) / 1000)
+        }&end=${Math.floor(new Date().getTime() / 1000)}`]}
+        tileSize={256}
+      >
+        <Layer
+          id="historical-precipitation-layer"
+          type="raster"
+          source="historical-precipitation"
+        />
+      </Source>
+    )}
         </ReactMapGL>
         {selectedCity && (
           <div
