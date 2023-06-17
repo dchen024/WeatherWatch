@@ -125,15 +125,15 @@ const SearchPage = () => {
   };
 
   return (
-    <div>
-      <h1>Search Page</h1>
+    <div className='container'>
+      <h1 className='title'>WeatherWatch</h1>
       <div className="autocomplete-container">
         <input
           type="text"
           value={searchQuery}
           onChange={handleInputChange}
         />
-        {cityOptions.length > 0 && (
+        {searchQuery && cityOptions.length > 0 && (
           <div className="autocomplete-dropdown">
             {cityOptions.map((city) => (
               <div
@@ -146,13 +146,16 @@ const SearchPage = () => {
             ))}
           </div>
         )}
-        <button onClick={handleSearchClick}>Search</button>
+      </div>
+      <div className='buttons'>
+        <button onClick={handleWeatherForecast}>Weather Forecast</button><br></br>
+        <button onClick={handleSearchClick}>Map</button>
         <button onClick={handleCurrentLocation}>Use Current Location</button>
         <button onClick={() => navigate('/news')}>View News</button>
-        <button onClick={handleWeatherForecast}>Weather Forecast</button>
       </div>
     </div>
   );
+  
 };
 
 export default SearchPage;
