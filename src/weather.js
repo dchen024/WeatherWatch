@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import "./weather.css"
+import Map from "./map"
 
 const WeatherForecast = () => {
   const location = useLocation();
@@ -65,14 +66,18 @@ const WeatherForecast = () => {
     }
   }, [selectedCity, generateWeatherDescription]);
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate() + 1;
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
+  const formatDayOfWeek = (dateString) => {
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const date = new Date(dateString); 
+    let dayOfWeekIndex = date.getDay() + 1;
+    
+    if (dayOfWeekIndex > 6)
+      dayOfWeekIndex = 0
 
-    return `${month}/${day}/${year}`;
+    console.log(dayOfWeekIndex);
+    return daysOfWeek[dayOfWeekIndex];
   };
+
   const getWeatherIconUrl = (iconCode, isDay) => {
     console.log(iconCode);
     // Assuming the weather icons are stored in the "weather-icons" directory
@@ -131,9 +136,9 @@ const WeatherForecast = () => {
       <p>{weatherDescription}</p>
       <h2>7-Day Weather Forecast</h2>
       {weatherData && weatherData.forecast && (
-        <div style={{ display: "flex" }}>
-          {weatherData.forecast.forecastday.map((day) => (
-            <div key={formatDate(day.date)}
+        <div style={{ display: "flex", overflowX: "auto", whiteSpace: "nowrap" }}>
+          {weatherData.forecast.forecastday.map((day, index) => (
+            <div key={formatDayOfWeek(day.date)}
               style={{
                 flex: 1,
                 margin: "0 10px",
@@ -141,7 +146,8 @@ const WeatherForecast = () => {
                 borderRadius: "5px",
                 padding: "10px",
               }}>
-              <h3>{formatDate(day.date)}</h3>
+              <h3> {index === 0 && "Today"}
+                { index > 0 && formatDayOfWeek(day.date)}</h3>
               <div className="Weather-Icon">
                 <img src={process.env.PUBLIC_URL + getWeatherIconUrl(day.day.condition.icon, true)} alt="Weather Icon" />
               </div>
@@ -161,6 +167,8 @@ const WeatherForecast = () => {
           ))}
         </div>
       )}
+      <br></br>
+      <Map selectedCity={selectedCity} mapSize="small" />;
     </div>
   );
 }
