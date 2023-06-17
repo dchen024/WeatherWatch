@@ -19,16 +19,23 @@ const News = () => {
   
   return (
     <div>
-      <h2>Latest News</h2>
-      <ul className="news-list">
+      <nav className="news-navbar">
+        <a href="/" className="news-navbar-brand">Home</a>
+        <h2 className='news-title'>Latest News</h2>
+      </nav>
+      <ul className="news-news-list">
         {news.map((article) => (
-          <li key={article.url} className="news-item">
-            <img src={article.urlToImage} alt={article.title} className="news-image" />
-            <div className="news-content">
-              <a href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a>
-              <p>{article.description}</p>
-            </div>
-          </li>
+            <li key={article.url} className="news-news-item">
+              <div className="news-article-container">
+                <a className='news-a' href={article.url} target="_blank" rel="noopener noreferrer">
+                  <img src={article.urlToImage} alt={article.title} className="news-news-image"/>
+                </a>
+                <div className="news-news-content">
+                  <a className='news-a'href={article.url} target="_blank" rel="noopener noreferrer">{article.title}</a>
+                  <p className='news-p'>{article.description}</p>
+                </div>
+              </div>
+            </li>
         ))}
       </ul>
     </div>

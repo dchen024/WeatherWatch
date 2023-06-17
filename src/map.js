@@ -14,48 +14,12 @@ const Map = ({ selectedCity, mapSize }) => {
   // Mapbox map viewport
   const [viewport, setViewport] = useState({
     width: '100%',
-    height: mapSize === 'small' ? '300px' : '900px',
+    height: mapSize === 'small' ? '200px' : '900px',
     latitude: selectedCity ? selectedCity.latitude : 0,
     longitude: selectedCity ? selectedCity.longitude : 0,
-    zoom: mapSize === 'small' ? 6 : 8,
+    zoom: mapSize = 8,
     bearing: 0, // Initial bearing (rotation) value
   });
-
-  useEffect(() => {
-    const rotationInterval = setInterval(() => {
-      setViewport((prevViewport) => {
-        const elapsedTime = new Date().getTime() - prevViewport.startTimestamp;
-        let newBearing;
-  
-        if (elapsedTime <= 3000) {
-          // Rotate the map for the first 3 seconds
-          newBearing = prevViewport.bearing + 1; 
-        } else if (elapsedTime <= 6000) {
-          // Rotate the map back for the next 3 seconds
-          newBearing = prevViewport.bearing - 1; 
-        } 
-        else {
-          // Stop the rotation after 6 seconds
-          clearInterval(rotationInterval);
-          return prevViewport;
-        }
-  
-        return {
-          ...prevViewport,
-          bearing: newBearing,
-        };
-      });
-    }, 100); 
-  
-    setViewport((prevViewport) => ({
-      ...prevViewport,
-      startTimestamp: new Date().getTime(), // Save the start timestamp
-    }));
-  
-    return () => {
-      clearInterval(rotationInterval); 
-    };
-  }, []); // Run the effect only once on component mount
 
   useEffect(() => {
     const fetchHistoricalPrecipitation = async () => {
@@ -80,7 +44,7 @@ const Map = ({ selectedCity, mapSize }) => {
 
   return (
     <div>
-      <div style={{ position: 'relative', height: '900px' }}>
+      <div style={{ position: 'relative', height: '600px', width: '600px' }}>
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_TOKEN}

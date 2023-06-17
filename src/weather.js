@@ -11,7 +11,7 @@ const WeatherForecast = () => {
 
   const generateWeatherDescription = useCallback(async () => {
     if (selectedCity) {
-      let prompt = `Right now, the weather in ${selectedCity.name} is ___, with a temperature of:__.\n 
+      let prompt = `Right now, the weather in ${selectedCity.name} is ___, with a temperature of:__.\n
       The real feel is temperature:__.\n
       The forecast for the rest of the week is: ___.\n
       If you decide to go outside, you should wear: ___.\n
@@ -133,7 +133,7 @@ const WeatherForecast = () => {
   return (
     <div>
       <h2>Weather Description</h2>
-      <p>{weatherDescription}</p>
+      <p id="weatherDescription">{weatherDescription}</p>
       <h2>7-Day Weather Forecast</h2>
       {weatherData && weatherData.forecast && (
         <div style={{ display: "flex", overflowX: "auto", whiteSpace: "nowrap" }}>
