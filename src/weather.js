@@ -62,10 +62,12 @@ const WeatherForecast = () => {
 
     const formatDate = (dateString) => {
       const date = new Date(dateString);
-      const options = { month: 'numeric', day: 'numeric', year: 'numeric' };
-      return date.toLocaleDateString(undefined, options);
-    };    
-
+      const day = date.getDate() + 1;
+      const month = date.getMonth() + 1;
+      const year = date.getFullYear();
+    
+      return `${month}/${day}/${year}`;
+    };
     const getWeatherIconUrl = (iconCode, isDay) => {
       console.log(iconCode);
       // Assuming the weather icons are stored in the "weather-icons" directory
@@ -125,7 +127,7 @@ const WeatherForecast = () => {
           <h2>7-Day Weather Forecast</h2>
       {weatherData && weatherData.forecast && (
         <div style={{ display: "flex" }}>
-          {weatherData.forecast.forecastday.map((day, index) => (
+          {weatherData.forecast.forecastday.map((day) => (
             <div key={formatDate(day.date)} 
             style={{
               flex: 1,
@@ -139,8 +141,8 @@ const WeatherForecast = () => {
               <img src={process.env.PUBLIC_URL + getWeatherIconUrl(day.day.condition.icon, true)} alt="Weather Icon" />
               </div>
               <p>Weather: {day.day.condition.text}</p>
-              <p>Max Temperature: {day.day.maxtemp_c}°C</p>
-              <p>Min Temperature: {day.day.mintemp_c}°C</p>
+              <p>Max Temperature: {day.day.maxtemp_c}°C / {day.day.maxtemp_f}°F</p>
+              <p>Min Temperature: {day.day.mintemp_c}°C / {day.day.mintemp_f}°F</p>
               <p> Humidity: {day.day.avghumidity}% </p>
               {day.day.air_quality?.['us-epa-index'] && (
               <p>Air Quality: {day.day.air_quality?.['us-epa-index']} ({getAQIDescription(day.day.air_quality?.['us-epa-index'])})</p>
