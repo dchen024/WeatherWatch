@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import "./weather.css"
 
@@ -6,26 +6,60 @@ const WeatherForecast = () => {
     const location = useLocation();
     const { selectedCity } = location.state || {};
     const [weatherData, setWeatherData] = useState(null);
+    const [weatherDescription, setWeatherDescription] = useState('');
+    
+    const generateWeatherDescription = useCallback(async () => {
+      if (selectedCity) {        
+        let prompt = `The current weather in ${selectedCity.name} is ___. The weather for next week is:__. If people decide to go outside, they should wear:__. Based on the weather this week, check out these places: __!`; // Modify the prompt as desired
+        const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
 
+        try {
+          const response = await fetch('https://api.openai.com/v1/engines/text-davinci-003/completions', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${apiKey}`,
+            },
+            body: JSON.stringify({
+              prompt: prompt,
+              max_tokens: 150,
+              temperature: 0.7,
+              n: 1,
+            }),
+          });
+  
+          const data = await response.json();
+          console.log(data);
+          const generatedDescription = data.choices[0].text.trim(); // Extract the generated weather description
+          setWeatherDescription(generatedDescription); // Set the weather description state
+        } catch (error) {
+          console.error('Error generating weather description:', error);
+        }
+
+      }
+    }, [selectedCity]);
+  
     useEffect(() => {
       const fetchWeatherData = async () => {
         try {
-            const apiKey = process.env.REACT_APP_WEATHERAPI_API_KEY;
-            const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${selectedCity.latitude},${selectedCity.longitude}&days=7&aqi=yes`;
-            
+          const apiKey = process.env.REACT_APP_WEATHERAPI_API_KEY;
+          const apiUrl = `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=${selectedCity.latitude},${selectedCity.longitude}&days=7&aqi=yes`;
+  
           const response = await fetch(apiUrl);
           const data = await response.json();
   
           setWeatherData(data);
+          generateWeatherDescription();
         } catch (error) {
           console.error('Error fetching weather data:', error);
         }
-      };  
+      };
+  
       if (selectedCity) {
         fetchWeatherData();
       }
-    }, [selectedCity]);
-    
+    }, [selectedCity, generateWeatherDescription]);
+
     const formatDate = (dateString) => {
       const date = new Date(dateString);
       const options = { month: 'numeric', day: 'numeric', year: 'numeric' };
@@ -86,7 +120,9 @@ const WeatherForecast = () => {
       
       return (
         <div>
-          <h2>7-Day Weather Forecast for {selectedCity.name}</h2>
+          <h2>Weather Description</h2>
+          <p>{weatherDescription}</p>
+          <h2>7-Day Weather Forecast</h2>
       {weatherData && weatherData.forecast && (
         <div style={{ display: "flex" }}>
           {weatherData.forecast.forecastday.map((day, index) => (
