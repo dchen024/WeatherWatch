@@ -10,7 +10,11 @@ const WeatherForecast = () => {
 
   const generateWeatherDescription = useCallback(async () => {
     if (selectedCity) {
-      let prompt = `The current weather in ${selectedCity.name} is ___.\nThe weather for next week is: ___.\nIf you decide to go outside, you should wear: ___.\nBased on the weather this week, check out these places: ___!`; // Modify the prompt as desired
+      let prompt = `Right now, the weather in ${selectedCity.name} is ___, with a temperature of:__.\n 
+      The real feel is temperature:__.\n
+      The forecast for the rest of the week is: ___.\n
+      If you decide to go outside, you should wear: ___.\n
+      Based on the weather this week, check out these places: ___!`; // Modify the prompt as desired
 
       const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
 

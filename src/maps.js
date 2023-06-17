@@ -31,10 +31,10 @@ const MapPage = () => {
         const elapsedTime = new Date().getTime() - prevViewport.startTimestamp;
         let newBearing;
   
-        if (elapsedTime <= 2000) {
+        if (elapsedTime <= 3000) {
           // Rotate the map for the first 5 seconds
           newBearing = prevViewport.bearing + 1; 
-        } else if (elapsedTime <= 4000) {
+        } else if (elapsedTime <= 6000) {
           // Rotate the map back for the next 10 seconds
           newBearing = prevViewport.bearing - 1; 
         } 
