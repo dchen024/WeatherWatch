@@ -6,6 +6,8 @@ import "./search.css"
 const SearchPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [cityOptions, setCityOptions] = useState([]);
+  const [selectedCity, setSelectedCity] = useState([]);
+  const [selected, setSelected] = useState(false);
 
   useEffect(() => {
     const fetchCityOptions = async () => {
@@ -15,19 +17,22 @@ const SearchPage = () => {
             searchQuery
           )}&typeahead=true&limit=7&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`
         );
-    
+
         const places = response.data.features.map((feature) => ({
           id: feature.properties.osm_id,
           name: feature.properties.formatted,
           country: feature.properties.country,
           // Additional properties like coordinates can be extracted if needed
         }));
-    
-        setCityOptions(places);
+
+        setSelectedCity(places.find((city) => city.name === searchQuery));
+
+        if (selected) setSelected(false);
+        else setCityOptions(places);
       } catch (error) {
         console.error('Error fetching city options:', error);
       }
-    };    
+    };
 
     if (searchQuery.length > 0) {
       fetchCityOptions();
@@ -37,30 +42,31 @@ const SearchPage = () => {
   }, [searchQuery]);
 
   const handleInputChange = (e) => {
+    setCityOptions([]);
     setSearchQuery(e.target.value);
   };
 
   const navigate = useNavigate();
 
   const handleSearchClick = async () => {
-    const selectedCity = cityOptions.find((city) => city.name === searchQuery);
-  
+
+
     try {
       const response = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           searchQuery
         )}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
       );
-  
+
       const { features } = response.data;
       if (features.length > 0) {
         const [longitude, latitude] = features[0].center;
         selectedCity.latitude = latitude;
         selectedCity.longitude = longitude;
-  
+
         console.log(selectedCity.latitude);
         console.log(selectedCity.longitude);
-  
+
         navigate('/map', { state: { selectedCity } });
       } else {
         console.log('City not found.');
@@ -70,44 +76,43 @@ const SearchPage = () => {
     }
   };
 
-  const handleWeatherForecast = async () =>{
-    const selectedCity = cityOptions.find((city) => city.name === searchQuery);
+  const handleWeatherForecast = async () => {
     try {
       const response = await axios.get(
         `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
           searchQuery
         )}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
       );
-  
+
       const { features } = response.data;
       if (features.length > 0) {
         const [longitude, latitude] = features[0].center;
         selectedCity.latitude = latitude;
         selectedCity.longitude = longitude;
-  
+
         console.log(selectedCity.latitude);
         console.log(selectedCity.longitude);
 
-        navigate('/weather', { state: {selectedCity} });
+        navigate('/weather', { state: { selectedCity } });
       } else {
-          console.log('City not found.');
-        }
-      } catch (error) {
-        console.error('Error fetching city coordinates:', error);
+        console.log('City not found.');
       }
+    } catch (error) {
+      console.error('Error fetching city coordinates:', error);
+    }
   }
-  
+
   const handleCurrentLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         async (position) => {
           const { latitude, longitude } = position.coords;
-  
+
           try {
             const response = await axios.get(
               `https://api.geoapify.com/v1/geocode/reverse?lat=${latitude}&lon=${longitude}&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`
             );
-  
+
             const address = response.data.features[0].properties.formatted;
             // Use the address as input for your search bar or perform any necessary actions
             setSearchQuery(address);
@@ -124,6 +129,39 @@ const SearchPage = () => {
     }
   };
 
+  const handleNews = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          searchQuery
+        )}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
+      );
+
+      const { features } = response.data;
+      if (features.length > 0) {
+        const [longitude, latitude] = features[0].center;
+        selectedCity.latitude = latitude;
+        selectedCity.longitude = longitude;
+
+        console.log(selectedCity.latitude);
+        console.log(selectedCity.longitude);
+
+        navigate('/news', { state: { selectedCity } });
+      } else {
+        console.log('City not found.');
+      }
+    } catch (error) {
+      console.error('Error fetching city coordinates:', error);
+    }
+  };
+
+  const handleAutoComplete = (name) => {
+    setSelected(true);
+
+    setSearchQuery(name);
+    setCityOptions([]);
+  }
+
   return (
     <div className='container'>
       <h1 className='title'>WeatherWatch</h1>
@@ -139,7 +177,7 @@ const SearchPage = () => {
               <div
                 key={city.id}
                 className="autocomplete-item"
-                onClick={() => setSearchQuery(city.name)}
+                onClick={() => handleAutoComplete(city.name)}
               >
                 {city.name}, {city.country}
               </div>
@@ -148,14 +186,14 @@ const SearchPage = () => {
         )}
       </div>
       <div className='buttons'>
-        <button onClick={handleWeatherForecast}>Weather Forecast</button><br></br>
+        <button onClick={handleWeatherForecast}>Weather Forecast</button>
         <button onClick={handleSearchClick}>Map</button>
         <button onClick={handleCurrentLocation}>Use Current Location</button>
-        <button onClick={() => navigate('/news')}>View News</button>
+        <button onClick={handleNews}>View News</button>
       </div>
     </div>
   );
-  
+
 };
 
 export default SearchPage;
