@@ -32,10 +32,12 @@ const News = () => {
         }),
       });
 
+      const previousDescription = "Here's a rundown of the latest news!\nTop 5 Stories include :\n"
+
       const data = await response.json();
       console.log(data);
       const generatedDescription = data.choices[0].text.trim(); // Extract the generated news description
-      setNewsDescription(generatedDescription); // Set the news description state
+      setNewsDescription(previousDescription + generatedDescription); // Set the news description state
     } catch (error) {
       console.error('Error generating news description:', error);
     }
