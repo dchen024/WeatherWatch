@@ -186,7 +186,6 @@ const SearchPage = () => {
         </div>
         <div className='buttons'>
           <button onClick={handleWeatherForecast}>Weather Forecast</button>
-          <button onClick={handleMap}>Map</button>
           <button onClick={handleCurrentLocation}>Use Current Location</button>
           <button onClick={handleNews}>View News</button>
         </div>
