@@ -59,8 +59,10 @@ const News = () => {
         <a href="/" className="news-navbar-brand">Home</a>
         <h2 className='news-title'>Latest News</h2>
       </nav>
-      <h2>News Description</h2>
-      <p>{newsDescription}</p> {/* Render the generated news description */}
+      <div className="weather-container">
+        <h2>News Description</h2>
+        <p className='newsDescription'>{newsDescription}</p> 
+      </div>
       <ul className="news-news-list">
         {news.map((article) => (
           <li key={article.url} className="news-news-item">

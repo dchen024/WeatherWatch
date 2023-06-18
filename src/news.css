@@ -16,6 +16,8 @@
   margin-left: 10px;
   font-size: 1.2rem;
   font-weight: bold;
+  color: #000;
+  text-decoration: none;
 }
 
 .news-title {
@@ -29,6 +31,14 @@
 
 .news-description {
   text-align: center;
+}
+
+.newsDescription {
+  margin-top: 10px;
+  white-space: normal;
+  line-height: 1.5rem;
+  font-size: 1.2rem;
+  width: 1000px;
 }
 
 .news-news-list {
@@ -46,6 +56,7 @@
   margin-top: 50px;
   padding: 15px;
   border-radius: 10px;
+  background-color: #b1cffc;
 }
 
 .news-news-image {
@@ -55,15 +66,18 @@
   object-fit: cover;
 }
 
+
+.news-p {
+  font-size: 1.2rem;
+  line-height: normal;
+  font-weight: normal;
+  margin-top: 12px;
+}
+
 .news-a {
   text-decoration: none;
   color: #000;
   font-size: 1.2rem;
   font-weight: bold;
-}
-
-.news-p {
-  font-size: 1.2rem;
-  font-weight: normal;
-  margin-top: 12px;
+  line-height: normal;
 }
