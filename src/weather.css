@@ -45,7 +45,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
-    background-color: #b1cffc;
+    background-color: #e7f2ff;
   }
 
 
@@ -84,3 +84,8 @@ p {
     padding: 5px;
     width: 100%;
 }
+
+
+.weather-navbar button:first-child {
+    margin-left: 20px;
+  }

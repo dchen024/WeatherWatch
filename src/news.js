@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import Map from "./map"
 import './news.css';
+
 
 const News = () => {
   const [news, setNews] = useState([]);
@@ -9,8 +11,41 @@ const News = () => {
 
   const location = useLocation();
   const { selectedCity } = location.state || {};
+  const navigate = useNavigate();
+
+  const handleHomeNav = () => {
+    navigate('/');
+  };
+
+  const handleWeatherNav = async () => {
+    try {
+      const response = await axios.get(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+          selectedCity.name
+        )}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
+      );
+
+      const { features } = response.data;
+      if (features.length > 0) {
+        const [longitude, latitude] = features[0].center;
+        selectedCity.latitude = latitude;
+        selectedCity.longitude = longitude;
+
+        navigate('/weather', { state: { selectedCity } });
+      } else {
+        console.log('City not found.');
+      }
+    } catch (error) {
+      console.error('Error fetching city coordinates:', error);
+    }
+  }
+
+  const handleNewsNav = () => {
+    navigate('/news', { state: { selectedCity } });
+  };
 
   const generateNewsDescription = useCallback(async () => {
+    console.log(selectedCity);
     const prompt = `Today in ${selectedCity.country}, the top 5 headlines are:\n`;
 
     const apiKey = process.env.REACT_APP_OPENAI_API_KEY;
@@ -52,9 +87,9 @@ const News = () => {
   return (
     <div>
       <nav className="news-navbar">
-        <a href="/" className="news-navbar-brand">Home</a>
-        <a href="/weather" className="news-navbar-brand">Weather</a>
-        <a href="/news" className="news-navbar-brand">News</a>
+        <button onClick={handleHomeNav} className="news-navbar-brand">Home</button>
+        <button onClick={handleWeatherNav} className="news-navbar-brand">Weather</button>
+        <button onClick={handleNewsNav} className="news-navbar-brand">News</button>
         <h2 className='news-title'>Latest News</h2>
       </nav>
       <div className="weather-container">
