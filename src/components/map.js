@@ -44,6 +44,13 @@ function Map({ selectedCity, children }) {
   }, [selectedCity]);
 
   return (
+  <>
+    <nav className="news-navbar">
+        <a href="/" className="news-navbar-brand">Home</a>
+        <a href="/weather" className="news-navbar-brand">Weather</a>
+        <a href="/news" className="news-navbar-brand">News</a>
+        <h2 className='news-title'>Map</h2>
+      </nav>
     <div style={{ height: "100%", width: "100%" }}>
       <MapGL
         {...viewport}
@@ -93,6 +100,7 @@ function Map({ selectedCity, children }) {
         ></div>
       )}
     </div>
+  </>
   );
 };
 
