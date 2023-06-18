@@ -131,51 +131,53 @@ const WeatherForecast = () => {
   };
 
   return (
-    <div>
-      <nav className="news-navbar">
+    <>
+    <nav className="news-navbar">
         <a href="/" className="news-navbar-brand">Home</a>
         <h2 className='news-title'>Weather</h2>
       </nav>
-      <h2>Weather Description</h2>
-      <p id="weatherDescription">{weatherDescription}</p>
-      <h2>7-Day Weather Forecast</h2>
-      {weatherData && weatherData.forecast && (
-        <div style={{ display: "flex", overflowX: "auto", whiteSpace: "nowrap" }}>
-          {weatherData.forecast.forecastday.map((day, index) => (
-            <div key={formatDayOfWeek(day.date)}
-              style={{
-                flex: 1,
-                margin: "0 10px",
-                border: "1px solid #ccc",
-                borderRadius: "5px",
-                padding: "10px",
-              }}>
-              <h3> {index === 0 && "Today"}
-                { index > 0 && formatDayOfWeek(day.date)}</h3>
-              <div className="Weather-Icon">
-                <img src={process.env.PUBLIC_URL + getWeatherIconUrl(day.day.condition.icon, true)} alt="Weather Icon" />
+    <div className='weather-main'>
+      <div className="weather-container">
+        <h2>Weather Description</h2>
+        <p id="weatherDescription">{weatherDescription}</p>
+      </div>
+      <div className="weather-forecast-container">
+        <h2 className="centered-title" id='#forecast-title'>7-Day Weather Forecast</h2>
+        {weatherData && weatherData.forecast && (
+          <div className='forecast-container'>
+            {weatherData.forecast.forecastday.map((day, index) => (
+              <div key={formatDayOfWeek(day.date)}
+                className='forecast-background'>
+                <h3> {index === 0 && "Today"}
+                  { index > 0 && formatDayOfWeek(day.date)}</h3>
+                <div className="Weather-Icon">
+                  <img src={process.env.PUBLIC_URL + getWeatherIconUrl(day.day.condition.icon, true)} alt="Weather Icon" />
+                </div>
+                <p>Weather: {day.day.condition.text}</p>
+                <p>Max Temperature: {day.day.maxtemp_c}°C / {day.day.maxtemp_f}°F</p>
+                <p>Min Temperature: {day.day.mintemp_c}°C / {day.day.mintemp_f}°F</p>
+                <p>Humidity: {day.day.avghumidity}% </p>
+                {day.day.air_quality?.['us-epa-index'] && (
+                  <p>Air Quality: {day.day.air_quality?.['us-epa-index']} ({getAQIDescription(day.day.air_quality?.['us-epa-index'])})</p>
+                )}
+                <p>Max Wind Speed: {day.day.maxwind_kph} km/h </p>
+                <p>Chance of Rain: {day.day.daily_chance_of_rain}% </p>
+                <p>Total Precipitation: {day.day.totalprecip_in} in.</p>
+                <p>UV Index: {day.day.uv} ({getUVDescription(day.day.uv)})</p>
+                {/* Display additional forecast data as needed */}
               </div>
-              <p>Weather: {day.day.condition.text}</p>
-              <p>Max Temperature: {day.day.maxtemp_c}°C / {day.day.maxtemp_f}°F</p>
-              <p>Min Temperature: {day.day.mintemp_c}°C / {day.day.mintemp_f}°F</p>
-              <p>Humidity: {day.day.avghumidity}% </p>
-              {day.day.air_quality?.['us-epa-index'] && (
-                <p>Air Quality: {day.day.air_quality?.['us-epa-index']} ({getAQIDescription(day.day.air_quality?.['us-epa-index'])})</p>
-              )}
-              <p>Max Wind Speed: {day.day.maxwind_kph} km/h </p>
-              <p>Chance of Rain: {day.day.daily_chance_of_rain}% </p>
-              <p>Total Precipitation: {day.day.totalprecip_in} in.</p>
-              <p>UV Index: {day.day.uv} ({getUVDescription(day.day.uv)})</p>
-              {/* Display additional forecast data as needed */}
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
       <div className="weather-map">
         <Map selectedCity={selectedCity}  />
       </div>
     </div>
+    </>
   );
+
+
 }
 
 export default WeatherForecast;
