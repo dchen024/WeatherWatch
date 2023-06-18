@@ -44,7 +44,7 @@ const Map = ({ selectedCity, mapSize }) => {
 
   return (
     <div>
-      <div style={{ position: 'relative', height: '450px', width: '450px' }}>
+      <div style={{ position: 'relative', height: '600px', width: '80%' }}>
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_TOKEN}

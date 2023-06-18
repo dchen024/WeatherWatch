@@ -1,8 +1,4 @@
-.weather-map {
-    position: fixed;
-    top: 80px; /* Adjust the top distance as needed */
-    right: 10px; /* Adjust the right distance as needed */
-}
+
 
 #weatherDescription {
     white-space: normal;
