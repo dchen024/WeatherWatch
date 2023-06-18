@@ -17,7 +17,7 @@ const Map = ({ selectedCity, mapSize }) => {
     height: mapSize === 'small' ? '200px' : '900px',
     latitude: selectedCity ? selectedCity.latitude : 0,
     longitude: selectedCity ? selectedCity.longitude : 0,
-    zoom: mapSize = 8,
+    zoom: mapSize = 8.5,
     bearing: 0, // Initial bearing (rotation) value
   });
 
@@ -44,7 +44,7 @@ const Map = ({ selectedCity, mapSize }) => {
 
   return (
     <div>
-      <div style={{ position: 'relative', height: '600px', width: '600px' }}>
+      <div style={{ position: 'relative', height: '450px', width: '450px' }}>
         <ReactMapGL
           {...viewport}
           mapboxApiAccessToken={MAPBOX_TOKEN}
@@ -92,7 +92,7 @@ const Map = ({ selectedCity, mapSize }) => {
 
       </div>
     </div>
-  );  
+  ); 
 };
 
 export default Map;

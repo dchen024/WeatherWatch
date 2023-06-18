@@ -39,7 +39,7 @@
 
 .news-news-item {
   break-inside: avoid-column; /* Prevents list items from breaking across columns */
-  width: 400px;
+  width: 300px;
   border: 5px solid #000;
   margin-top: 50px;
   padding: 15px;
@@ -48,8 +48,8 @@
 
 .news-news-image {
   position: relative;
-  width: 400px;
-  height: 300px;
+  width: 300px;
+  height: 225;
   object-fit: cover;
 }
 

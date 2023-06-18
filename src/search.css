@@ -1,4 +1,9 @@
-
+.background {
+  background-image: url("/public/background.png");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
 .container {
   /* align all items in the middle vertically */
   display: flex;
@@ -11,6 +16,7 @@
 .title {
   font-size: 5rem;
   font-weight: bold;
+  color: white;
 }
 
 input {

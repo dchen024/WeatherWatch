@@ -163,33 +163,35 @@ const SearchPage = () => {
   }
 
   return (
-    <div className='container'>
-      <h1 className='title'>WeatherWatch</h1>
-      <div className="autocomplete-container">
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleInputChange}
-        />
-        {searchQuery && cityOptions.length > 0 && (
-          <div className="autocomplete-dropdown">
-            {cityOptions.map((city) => (
-              <div
-                key={city.id}
-                className="autocomplete-item"
-                onClick={() => handleAutoComplete(city.name)}
-              >
-                {city.name}, {city.country}
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-      <div className='buttons'>
-        <button onClick={handleWeatherForecast}>Weather Forecast</button>
-        <button onClick={handleSearchClick}>Map</button>
-        <button onClick={handleCurrentLocation}>Use Current Location</button>
-        <button onClick={handleNews}>View News</button>
+    <div className='background'>
+      <div className='container'>
+        <h1 className='title'>WeatherWatch</h1>
+        <div className="autocomplete-container">
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleInputChange}
+          />
+          {searchQuery && cityOptions.length > 0 && (
+            <div className="autocomplete-dropdown">
+              {cityOptions.map((city) => (
+                <div
+                  key={city.id}
+                  className="autocomplete-item"
+                  onClick={() => handleAutoComplete(city.name)}
+                >
+                  {city.name}, {city.country}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+        <div className='buttons'>
+          <button onClick={handleWeatherForecast}>Weather Forecast</button>
+          <button onClick={handleSearchClick}>Map</button>
+          <button onClick={handleCurrentLocation}>Use Current Location</button>
+          <button onClick={handleNews}>View News</button>
+        </div>
       </div>
     </div>
   );
