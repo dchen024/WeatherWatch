@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import SearchPage from './search';
-import MapPage from './maps';
+import MapPage from './map';
 import News from './news';
 import WeatherForecast from './weather';
 

@@ -15,7 +15,7 @@ const SearchPage = () => {
         const response = await axios.get(
           `https://api.geoapify.com/v1/geocode/autocomplete?text=${encodeURIComponent(
             searchQuery
-          )}&typeahead=true&limit=7&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`
+          )}&limit=7&apiKey=${process.env.REACT_APP_GEOAPIFY_API_KEY}`
         );
 
         const places = response.data.features.map((feature) => ({
@@ -48,7 +48,7 @@ const SearchPage = () => {
 
   const navigate = useNavigate();
 
-  const handleSearchClick = async () => {
+  const handleMap = async () => {
 
 
     try {
@@ -84,14 +84,12 @@ const SearchPage = () => {
         )}.json?access_token=${process.env.REACT_APP_MAPBOX_ACCESS_TOKEN}`
       );
 
+
       const { features } = response.data;
       if (features.length > 0) {
         const [longitude, latitude] = features[0].center;
         selectedCity.latitude = latitude;
         selectedCity.longitude = longitude;
-
-        console.log(selectedCity.latitude);
-        console.log(selectedCity.longitude);
 
         navigate('/weather', { state: { selectedCity } });
       } else {
@@ -165,7 +163,7 @@ const SearchPage = () => {
   return (
     <div className='background'>
       <div className='container'>
-        <h1 className='title'>WeatherWatch</h1>
+        <img src="/logo.png" alt="Title" />
         <div className="autocomplete-container">
           <input
             type="text"
@@ -188,7 +186,7 @@ const SearchPage = () => {
         </div>
         <div className='buttons'>
           <button onClick={handleWeatherForecast}>Weather Forecast</button>
-          <button onClick={handleSearchClick}>Map</button>
+          <button onClick={handleMap}>Map</button>
           <button onClick={handleCurrentLocation}>Use Current Location</button>
           <button onClick={handleNews}>View News</button>
         </div>

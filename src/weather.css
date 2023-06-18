@@ -1,4 +1,10 @@
-
+.weather-map {
+    width: 1200px;
+    height: 600px;
+    display: flex;
+    justify-items: center;
+    align-items: center;
+}
 
 #weatherDescription {
     white-space: normal;

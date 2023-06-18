@@ -171,8 +171,9 @@ const WeatherForecast = () => {
           ))}
         </div>
       )}
-
-      <Map selectedCity={selectedCity} mapSize="small" />
+      <div className="weather-map">
+        <Map selectedCity={selectedCity}  />
+      </div>
     </div>
   );
 }
