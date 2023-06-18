@@ -134,8 +134,10 @@ const WeatherForecast = () => {
     <>
     <nav className="news-navbar">
         <a href="/" className="news-navbar-brand">Home</a>
+        <a href="/weather" className="news-navbar-brand">Weather</a>
+        <a href="/news" className="news-navbar-brand">News</a>
         <h2 className='news-title'>Weather</h2>
-      </nav>
+    </nav>
     <div className='weather-main'>
       <div className="weather-container">
         <h2>Weather Description</h2>

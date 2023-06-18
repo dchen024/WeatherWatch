@@ -5,15 +5,18 @@
 
 .news-navbar {
   display: flex;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: space-between;
-  padding: 0, 10, 10, 0;
   height: 80px;
   background-color: #b1cffc;
+  gap: 40px;
+}
+
+.news-navbar a:first-child {
+  margin-left: 20px;
 }
 
 .news-navbar-brand {
-  margin-left: 10px;
   font-size: 1.2rem;
   font-weight: bold;
   color: #000;

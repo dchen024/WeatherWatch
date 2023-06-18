@@ -57,6 +57,8 @@ const News = () => {
     <div>
       <nav className="news-navbar">
         <a href="/" className="news-navbar-brand">Home</a>
+        <a href="/weather" className="news-navbar-brand">Weather</a>
+        <a href="/news" className="news-navbar-brand">News</a>
         <h2 className='news-title'>Latest News</h2>
       </nav>
       <div className="weather-container">
