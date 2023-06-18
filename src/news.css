@@ -27,7 +27,9 @@
   font-weight: bold;
 }
 
-
+.news-description {
+  text-align: center;
+}
 
 .news-news-list {
   list-style-type: none;
