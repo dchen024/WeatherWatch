@@ -139,7 +139,7 @@ const WeatherForecast = () => {
       <h2>Weather Description</h2>
       <p id="weatherDescription">{weatherDescription}</p>
       <div className="weather-map">
-        <Map selectedCity={selectedCity} mapSize="small" />;
+        <Map selectedCity={selectedCity} mapSize="small" />
       </div>
       <h2>7-Day Weather Forecast</h2>
       {weatherData && weatherData.forecast && (
