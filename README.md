@@ -18,11 +18,11 @@ On June 7th, a Canadian wildfire caused New York City's air quality to drop sign
 
 ## Weather Search Page
 On the weather page, you will see the AI summarized current weather plus suggestions based on the weather at the top. Under that, you will see the 7-day forecast which shows information such as the weather, air quality, etc. Below the 7-day forecast, you will see the historical weather data which shows the data for previous days. And finally, at the bottom, you can see the precipitation in your local area or zoom out to see the precipitation around the world.<br><br>
-!add GIF here!
+![weather page demo video](https://github.com/shadasali/Data-Aggregation/blob/main/weather.gif)
 
 ## Local News Page
 On the news page, you will see the top news in your area. If you're short on time read the summarization of the top articles.<br><br>
-!add GIF here!
+![news page demo video](https://github.com/shadasali/Data-Aggregation/blob/main/news.gif)
 
 ## Technology Stack
 **Frontend**
