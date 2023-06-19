@@ -1,70 +1,70 @@
-# Getting Started with Create React App
+# WeatherWatch
+Headstarter Project 2  
+Created by Daniel Chen, Shadman Sakib, and Jawad Chowdhury.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Inspiration / Problem We Are Solving
+On June 7th, a Canadian wildfire caused New York City's air quality to drop significantly. We wanted to build a real-time weather app so people can check the weather and air condition of their desired locations.  
+!add Image here!
 
-## Available Scripts
+## What is WeatherWatch  
+- real-time weather
+- precipitation map
+- 7-day forecast
+- Top news by location
+- OpenAI-powered summaries for weather & news
 
-In the project directory, you can run:
+## Weather Search Page
+!add text here!  
+!add GIF here!
 
-### `npm start`
+## Local News Page
+!add text here!  
+!add GIF here!
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Percipitation Map
+!add text here!  
+!add GIF here!
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Technology Stack
+**Frontend**
+- React
 
-### `npm test`
+**Backend**
+- Node
+- Axios
+- APIs
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**APIs**
+- Mapbox API
+- NewsAPI
+- OpenAI ChatGPT API
+- OpenWeatherMap API
+- Geoapify API
 
-### `npm run build`
+## Hurdles
+1) Having a pin on the map to show User's selected location
+2) Displaying real-time precipitation map
+3) Displaying weather icons for each weather description
+4) Filtering news articles by country
+5) Passing data between React pages
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Future Iterations
+1) Using Twilio to add SMS notifications for alerts and etc
+2) Add a Search Bar to Weather and News Page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+## How to Run
+1) Run `npm install` inside the project's terminal <br>
+Installs all the necessary dependencies for the code to compile properly.
+2) Create a `.env` file in the root directory <br>
+Used to connect Resume Parser to your Firebase Storage
+```
+REACT_APP_MAPBOX_ACCESS_TOKEN="Mapbox API Key"
+REACT_APP_NEWS_API_KEY= "News API Key"
+REACT_APP_GEOAPIFY_API_KEY = "Geoapify API Key"
+REACT_APP_WEATHERAPI_API_KEY = "WeatherAPI API Key"
+REACT_APP_OPEN_WEATHERMAP_API_KEY = "OpenWeatherMap API Key"
+REACT_APP_OPENAI_API_KEY = "OpenAI API Key"
+```
+3) Run `npm start` in the project's terminal
+Opens Resume Parser app in your browser <br>
+By default it will open [http://localhost:3000](http://localhost:3000)
