@@ -10,11 +10,12 @@ On June 7th, a Canadian wildfire caused New York City's air quality to drop sign
 - real-time weather
 - precipitation map
 - 7-day forecast
-- Top news by location
+- historical weather data
+- top news by location
 - OpenAI-powered summaries for weather & news
 
 ## Weather Search Page
-On the weather page, you will see the AI summarized current weather plus suggestions based on the weather at the top. Under that, you will see the 7-day forecast which shows information such as the weather, air quality, etc. And finally at the bottom, you can see the precipitation in your local area or zoom out to see the precipitation around the world.<br><br>
+On the weather page, you will see the AI summarized current weather plus suggestions based on the weather at the top. Under that, you will see the 7-day forecast which shows information such as the weather, air quality, etc. Below the 7-day forecast, you will see the historical weather data which shows the data for previous days. And finally, at the bottom, you can see the precipitation in your local area or zoom out to see the precipitation around the world.<br><br>
 !add GIF here!
 
 ## Local News Page
