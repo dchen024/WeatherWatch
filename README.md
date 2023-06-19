@@ -3,8 +3,8 @@ Headstarter Project 2
 Created by Daniel Chen, Shadman Sakib, and Jawad Chowdhury.
 
 ## Inspiration / Problem We Are Solving
-On June 7th, a Canadian wildfire caused New York City's air quality to drop significantly. We wanted to build a real-time weather app so people can check the weather and air condition of their desired locations.  
-!add Image here!
+On June 7th, a Canadian wildfire caused New York City's air quality to drop significantly. We wanted to build a real-time weather app so people can check the weather and air condition of their desired locations.<br>  
+<img src="https://github.com/shadasali/Data-Aggregation/blob/main/picture.png" alt="NYC during Canadian wildfire">
 
 ## What is WeatherWatch  
 - real-time weather
